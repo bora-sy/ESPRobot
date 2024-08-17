@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "LCD.h"
+#include "Comms/CommsMain.h"
 
 #define LOGTAG "Main"
 
@@ -20,12 +21,19 @@ void InitCritical(bool (*initFunc)(), const char* loadingText, const char* error
 
 void setup() {
   Serial.begin(921600);
-  Serial.println("Started");
+  Serial.println("Starting");
   LCD::Initialize();
   LCD::PrintCenter("Starting..");
-  
+
+  InitCritical(CommsMain::Initialize, "Initializing Comms", "Comms failed to initialize");
+
+
+
+  Serial.println("Started");
+  LCD::PrintCenter("Started");
 }
 
 void loop() {
-
+  CommsMain::Loop();
+  delay(1000);
 }
