@@ -8,7 +8,10 @@ bool CommsMain::Initialize()
 
 void CommsMain::Loop()
 {
-
+    LCD::PrintCenter("Pinging...");
+    bool suc = PingDevice(0, 1000);
+    LCD::PrintCenter(suc ? "1" : "0");
+    delay(1000);
 }
 
 void CommsMain::HandlePacket(uint8_t senderDeviceID, PacketType type, const uint8_t *data, int len)
@@ -65,7 +68,7 @@ void CommsMain::pckHandler_JoystickControl(uint8_t senderDeviceID, const uint8_t
     
     int16_t x = *((int16_t*)data);
     int16_t y = *((int16_t*)(data + 2));
-    
+
     Serial.printf("Joystick control received: %d, %d\n", x, y);
 
     MotorController::JoystickControl(x,y);

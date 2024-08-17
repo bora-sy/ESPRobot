@@ -1,10 +1,16 @@
 #include "Comms/Comm_Espnow.h"
 
-const uint8_t Comm_Espnow::baseMACAddr[6] = {0x5C, 0xCF, 0x7F, 0x99, 0x9A, 0};
+const uint8_t Comm_Espnow::baseMACAddr[6] = {0x5C, 0xCF, 0x7F, 0x99, 0x9A, 1};
 
 bool Comm_Espnow::Initialize()
 {
     WiFi.mode(WIFI_STA);
+    
+    Serial.println("MAC Address: " + WiFi.macAddress());
+    bool suc = wifi_set_macaddr(STATION_IF, (uint8_t*)baseMACAddr);
+    Serial.printf("Set MAC: %s\n", suc ? "Success" : "Failed");
+    Serial.println("Mac Address: " + WiFi.macAddress());
+
     if (esp_now_init() != 0) {
     Serial.println("Error initializing ESP-NOW");
     return false;

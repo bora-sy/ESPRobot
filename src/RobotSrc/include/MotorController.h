@@ -1,7 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include "Pinout.h"
-
+#include "LCD.h"
 
 enum Motor
 {
@@ -12,6 +12,7 @@ enum Motor
 class MotorController
 {
 private:
+    static void SetSpeed(Motor motor, int16_t speed);
 public:
     static void Initialize();
 
