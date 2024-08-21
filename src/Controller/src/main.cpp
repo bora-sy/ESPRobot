@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "Comms/CommsMain.h"
+#include "JoystickHandler.h"
 
 #define LOGTAG "Main"
 
@@ -14,6 +15,8 @@ void setup() {
     ESP.restart();
     return;
   }
+
+  JoystickHandler::Initialize();
 
   Serial.println("Started");
 }

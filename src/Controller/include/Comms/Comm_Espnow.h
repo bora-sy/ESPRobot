@@ -13,6 +13,8 @@ private:
     static void GetMACByDeviceID(uint8_t *mac, uint8_t deviceID);
 
     static void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len);
+
+    static void AddPeer(uint8_t* macAddr);
     
 public:
 

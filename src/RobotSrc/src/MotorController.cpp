@@ -22,8 +22,8 @@ void MotorController::JoystickControl(int16_t rot, int16_t fw)
 
     Serial.printf("New Speed (L: %d, R: %d)\n", leftSpeed, rightSpeed);
 
-    LCD::PrintCenterRow("L: " + String(leftSpeed),0);
-    LCD::PrintCenterRow("R: " + String(rightSpeed),1);
+    //LCD::PrintCenterRow("L: " + String(leftSpeed),0);
+    //LCD::PrintCenterRow("R: " + String(rightSpeed),1);
 
     SetSpeed(M_LEFT, leftSpeed);
     SetSpeed(M_RIGHT, rightSpeed);

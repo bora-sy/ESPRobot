@@ -8,10 +8,7 @@ bool CommsMain::Initialize()
 
 void CommsMain::Loop()
 {
-    LCD::PrintCenter("Pinging...");
-    bool suc = PingDevice(0, 1000);
-    LCD::PrintCenter(suc ? "1" : "0");
-    delay(1000);
+    
 }
 
 void CommsMain::HandlePacket(uint8_t senderDeviceID, PacketType type, const uint8_t *data, int len)

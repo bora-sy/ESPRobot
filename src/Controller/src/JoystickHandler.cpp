@@ -12,18 +12,32 @@ void JoystickHandler::Initialize()
 void JoystickHandler::t_JoystickHandler(void *pvParameters)
 {
     const uint8_t TargetDeviceID = 1;
-    const uint16_t deadzone = 10;
 
     while (true)
     {
         uint16_t x = analogRead(PIN_JOYSTICK_X);
         uint16_t y = analogRead(PIN_JOYSTICK_Y);
-        Serial.printf("X: %d, Y: %d\n", x, y);
+
+        #if AXIS_X_REVERSED
+        x = 4095 - x;
+        #endif
+
+        #if AXIS_Y_REVERSED
+        y = 4095 - y;
+        #endif
+
+        //Serial.printf("X: %d, Y: %d\n", x, y);
 
         int16_t x16 = map(x, 0, 4095, -255, 255);
         int16_t y16 = map(y, 0, 4095, -255, 255);
 
-        x16 = x16 < deadzone && x16 > -deadzone ? 0 : x16; // Deadzone
+        if(AXIS_X_DEADZONE < 0) x16 = x16 < -AXIS_X_DEADZONE && x16 > AXIS_X_DEADZONE ? 0 : x16;
+        else x16 = x16 < AXIS_X_DEADZONE && x16 > -AXIS_X_DEADZONE ? 0 : x16;
+
+        if(AXIS_Y_DEADZONE < 0) y16 = y16 < -AXIS_Y_DEADZONE && y16 > AXIS_Y_DEADZONE ? 0 : y16;
+        else y16 = y16 < AXIS_Y_DEADZONE && y16 > -AXIS_Y_DEADZONE ? 0 : y16;
+
+       Serial.printf("(Mapped) X: %d, Y: %d\n", x16, y16);
 
         
 

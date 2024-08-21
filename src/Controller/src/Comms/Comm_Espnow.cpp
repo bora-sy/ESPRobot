@@ -1,15 +1,14 @@
 #include "Comms/Comm_Espnow.h"
 
-const uint8_t Comm_Espnow::baseMACAddr[6] = {0x5C, 0xCF, 0x7F, 0x99, 0x9A, 1};
+const uint8_t Comm_Espnow::baseMACAddr[6] = {0x5C, 0xCF, 0x7F, 0x99, 0x9A, 0};
 
 bool Comm_Espnow::Initialize()
 {
     WiFi.mode(WIFI_STA);
     
     Serial.println("MAC Address: " + WiFi.macAddress());
-    bool suc = esp_wifi_set_mac(WIFI_IF_STA, (uint8_t*)baseMACAddr);
-    
-    Serial.printf("Set MAC: %s\n", suc ? "Success" : "Failed");
+    esp_err_t suc = esp_wifi_set_mac(WIFI_IF_STA, (uint8_t*)baseMACAddr);
+    Serial.printf("Set MAC: %s (%d)\n", suc == 0 ? "Success" : "Failed", suc);
     Serial.println("Mac Address: " + WiFi.macAddress());
 
     if (esp_now_init() != 0) {
@@ -55,10 +54,23 @@ void Comm_Espnow::SendPacket(uint8_t receiverDeviceID, PacketType type, const ui
 {
     uint8_t mac[6];
     GetMACByDeviceID(mac, receiverDeviceID);
+    AddPeer(mac);
 
     uint8_t fullData[len + 1];
     fullData[0] = type;
     memcpy(fullData + 1, data, len);
 
-    esp_now_send(mac, fullData, len + 1);
+    esp_err_t stat = esp_now_send(mac, fullData, len + 1);
+    Serial.printf("Sent packet %d (Len: %d) to %02X:%02X:%02X:%02X:%02X:%02X [Status: %d]\n", type, len + 1, mac[0], mac[1], mac[2], mac[3], mac[4], mac[5], stat);
+}
+
+void Comm_Espnow::AddPeer(uint8_t* macAddr)
+{
+    esp_now_peer_info_t peerInfo;
+    memcpy(peerInfo.peer_addr, macAddr, 6);
+    peerInfo.channel = 0;
+    peerInfo.encrypt = false;
+    peerInfo.ifidx = wifi_interface_t::WIFI_IF_STA;
+
+    esp_now_add_peer(&peerInfo);
 }
