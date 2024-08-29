@@ -11,25 +11,8 @@ ESPRobot is a mini robot made with ESP32, coded in C++, using PlatformIO. Contro
 
 ### Robot
 
-2.1- **Open in VS Code:**  
-   - Open the [src/RobotSrc](https://github.com/bora-sy/ESPRobot/tree/main/src/RobotSrc) folder in VS Code.
-   - PlatformIO will automatically detect the environment.
-
-2.2- **Connect your Board:**  
-   Connect an ESP32 Board (or any board with any ESP32 module) to your computer via USB.
-
-2.3- **Select the Environment:**  
-   Make sure the correct environment is selected in `platformio.ini`. You can modify this file if needed.
-
-2.4- **Upload the Code:**  
-   - Click on the PlatformIO icon in the sidebar.
-   - Under "PROJECT TASKS," select your environment.
-   - Click on "Upload" to compile and upload the code to your board.
-
-### Controller
-
 3.1- **Open in VS Code:**  
-   - Open the [src/Controller](https://github.com/bora-sy/ESPRobot/tree/main/src/Controllerf) folder in VS Code.
+   - Open the [src/RobotSrc](https://github.com/bora-sy/ESPRobot/tree/main/src/RobotSrc) folder in VS Code.
    - PlatformIO will automatically detect the environment.
 
 3.2- **Connect your Board:**  
@@ -39,6 +22,23 @@ ESPRobot is a mini robot made with ESP32, coded in C++, using PlatformIO. Contro
    Make sure the correct environment is selected in `platformio.ini`. You can modify this file if needed.
 
 3.4- **Upload the Code:**  
+   - Click on the PlatformIO icon in the sidebar.
+   - Under "PROJECT TASKS," select your environment.
+   - Click on "Upload" to compile and upload the code to your board.
+
+### Controller
+
+4.1- **Open in VS Code:**  
+   - Open the [src/Controller](https://github.com/bora-sy/ESPRobot/tree/main/src/Controllerf) folder in VS Code.
+   - PlatformIO will automatically detect the environment.
+
+4.2- **Connect your Board:**  
+   Connect an ESP32 Board (or any board with any ESP32 module) to your computer via USB.
+
+4.3- **Select the Environment:**  
+   Make sure the correct environment is selected in `platformio.ini`. You can modify this file if needed.
+
+4.4- **Upload the Code:**  
    - Click on the PlatformIO icon in the sidebar.
    - Under "PROJECT TASKS," select your environment.
    - Click on "Upload" to compile and upload the code to your board.
